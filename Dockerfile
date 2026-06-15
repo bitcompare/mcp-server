@@ -9,7 +9,8 @@
 # stdio (initialize + tools/list). As of @bitcompare/mcp-server 1.1.0 the
 # server registers its tool catalog and connects the transport WITHOUT a key,
 # so introspection succeeds with no BITCOMPARE_API_KEY. Tool *calls* still
-# require a valid ck_live_ Pro key and are enforced by the API (401/403).
+# require a valid ck_live_ Pro key — keyless/non-Pro calls are refused by the
+# server with a clear MCP error (the catalog is introspectable, not callable).
 FROM node:20-alpine
 
 # Pin to a published version so the image is reproducible. Bump on each release.
