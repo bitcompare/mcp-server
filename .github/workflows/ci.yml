@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  docker-introspection:
+    name: Docker build + keyless introspection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t bitcompare-mcp:ci .
+
+      - name: tools/list responds without a key (18 tools)
+        run: |
+          # The server must advertise its catalog to registry crawlers
+          # without an API key. Drive the stdio transport directly.
+          OUT=$(
+            { printf '%s\n' \
+                '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci","version":"0.0.0"}}}' \
+                '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'; \
+              sleep 5; \
+            } | docker run -i --rm -e BITCOMPARE_API_KEY="" bitcompare-mcp:ci
+          )
+          COUNT=$(printf '%s' "$OUT" | grep -o '"inputSchema"' | wc -l | tr -d ' ')
+          echo "tools advertised: $COUNT"
+          test "$COUNT" -eq 18
+
+      - name: tool calls are refused without a key
+        run: |
+          OUT=$(
+            { printf '%s\n' \
+                '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci","version":"0.0.0"}}}' \
+                '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_rates","arguments":{}}}'; \
+              sleep 5; \
+            } | docker run -i --rm -e BITCOMPARE_API_KEY="" bitcompare-mcp:ci
+          )
+          printf '%s' "$OUT" | grep -q '"isError":true'
+          printf '%s' "$OUT" | grep -q 'BITCOMPARE_API_KEY'
