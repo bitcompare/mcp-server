@@ -1,0 +1,21 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: [bitcompareApiKey]
+    properties:
+      bitcompareApiKey:
+        type: string
+        title: Bitcompare API key
+        description: >
+          Your ck_live_* API key from https://pro.bitcompare.net/dashboard/keys.
+          Requires a Pro or Enterprise plan.
+        pattern: "^ck_live_[a-f0-9]+$"
+  commandFunction: |
+    (config) => ({
+      command: 'npx',
+      args: ['-y', '@bitcompare/mcp-server'],
+      env: {
+        BITCOMPARE_API_KEY: config.bitcompareApiKey
+      }
+    })
