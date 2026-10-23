@@ -8,8 +8,8 @@ startCommand:
         type: string
         title: Bitcompare API key
         description: >
-          Your ck_live_* API key from https://pro.bitcompare.net/dashboard/keys.
-          Requires a Pro or Enterprise plan.
+          Your ck_live_* API key from https://auth.bitcompare.net/pro/signup.
+          The published npm 1.1.0 package requires Pro or Enterprise. Free tools require npm 1.2.0 or the updated hosted endpoint.
         pattern: "^ck_live_[a-f0-9]+$"
   commandFunction: |
     (config) => ({
