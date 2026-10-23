@@ -9,12 +9,14 @@
 # stdio (initialize + tools/list). As of @bitcompare/mcp-server 1.1.0 the
 # server registers its tool catalog and connects the transport WITHOUT a key,
 # so introspection succeeds with no BITCOMPARE_API_KEY. Tool *calls* still
-# require a valid ck_live_ Pro key — keyless/non-Pro calls are refused by the
-# server with a clear MCP error (the catalog is introspectable, not callable).
+# require a valid ck_live_ key — keyless calls are refused by the server with a
+# clear MCP error (the catalog is introspectable, not callable). From 1.2.0 a
+# Free-tier key can call get_rates, get_rate_by_symbol and list_providers; the
+# other tools need a Pro plan and are refused per tool with an MCP error.
 FROM node:20-alpine
 
 # Pin to a published version so the image is reproducible. Bump on each release.
-ARG MCP_SERVER_VERSION=1.1.0
+ARG MCP_SERVER_VERSION=1.2.0
 RUN npm install -g "@bitcompare/mcp-server@${MCP_SERVER_VERSION}"
 
 # Optional at build/introspection time; required for actual tool calls.
