@@ -9,7 +9,8 @@ startCommand:
         title: Bitcompare API key
         description: >
           Your ck_live_* API key from https://pro.bitcompare.net/dashboard/keys.
-          Requires a Pro or Enterprise plan.
+          Free keys can use get_rates, get_rate_by_symbol and list_providers;
+          the other tools need a Pro plan.
         pattern: "^ck_live_[a-f0-9]+$"
   commandFunction: |
     (config) => ({

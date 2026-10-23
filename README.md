@@ -2,17 +2,17 @@
 
 The official **crypto yield data MCP server**: native Claude access to live and historical crypto lending, savings, staking, borrowing, stablecoin, price, coin metadata, and market data. Built on [Model Context Protocol](https://modelcontextprotocol.io) — works with Claude Desktop, Claude Code, Claude.ai, and any MCP-compatible agent.
 
-**One npm install, eighteen tools, one API key.**
+**One npm install, 21 tools, one API key.**
 
 ```bash
 npx -y @bitcompare/mcp-server
 ```
 
-**Requires a Bitcompare Pro or Enterprise plan.** Get a `ck_live_*` key at <https://pro.bitcompare.net/dashboard/keys>.
+**Free API keys can use get_rates, get_rate_by_symbol and list_providers. The other tools, including history, need a Pro plan.** Get a `ck_live_*` key at <https://pro.bitcompare.net/dashboard/keys>.
 
 ## What you get
 
-18 read-only tools, all gated by the same plan limits as REST:
+21 read-only tools, all gated by the same plan limits as REST:
 
 - **Crypto yield data** — current & historical lending, borrowing, savings, and staking APYs across CeFi and DeFi providers
 - **Coins** — metadata, markets, history, similar coins, and top-by-market-cap lookups
