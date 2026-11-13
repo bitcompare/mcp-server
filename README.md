@@ -2,20 +2,20 @@
 
 The official **crypto yield data MCP server**: native Claude access to live and historical crypto lending, savings, staking, borrowing, stablecoin, price, coin metadata, and market data. Built on [Model Context Protocol](https://modelcontextprotocol.io) — works with Claude Desktop, Claude Code, Claude.ai, and any MCP-compatible agent.
 
-**One npm install, eighteen tools, one API key.**
+**One npm install, twenty-one tools, one API key.**
 
 ```bash
 npx -y @bitcompare/mcp-server
 ```
 
-**Requires a Bitcompare Pro or Enterprise plan.** Get a `ck_live_*` key at <https://pro.bitcompare.net/dashboard/keys>.
+**Free API keys can call get_rates, get_rate_by_symbol and list_providers (30 requests/minute, 10,000/month). Every other tool, including get_rate_history, needs a paid plan (Starter at $49/mo or above).** Sign up at <https://auth.bitcompare.net/pro/signup>. Requires npm 1.2.0 or later; 1.1.0 has 18 tools and only works with Pro or Enterprise.
 
 ## What you get
 
-18 read-only tools, all gated by the same plan limits as REST:
+21 read-only tools. Calls use the same API key and request quotas as REST:
 
 - **Crypto yield data** — current & historical lending, borrowing, savings, and staking APYs across CeFi and DeFi providers
-- **Coins** — metadata, markets, history, similar coins, and top-by-market-cap lookups
+- **Coins** — metadata, price history, similar coins, and top-by-market-cap lookups
 - **Prices** — aggregated exchange prices with median + outlier filtering
 - **Global market stats** — total market cap, dominance, Fear & Greed Index, 24h top movers
 - **Stablecoin data** — peg deviation leaderboard, historical drift, and yield comparison
@@ -82,7 +82,7 @@ docker build -t bitcompare-mcp .
 docker run -i -e BITCOMPARE_API_KEY=ck_live_... bitcompare-mcp
 ```
 
-`tools/list` introspection works without a key; tool **calls** require a valid `ck_live_` Pro key.
+`tools/list` introspection works without a key; tool **calls** need a valid `ck_live_` key: Free keys can call the three Free tools, and paid plans (Starter or above) can call all 21.
 
 ## CLI flags
 

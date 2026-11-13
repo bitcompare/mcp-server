@@ -17,7 +17,7 @@ jobs:
       - name: Build image
         run: docker build -t bitcompare-mcp:ci .
 
-      - name: tools/list responds without a key (18 tools)
+      - name: tools/list responds without a key (21 tools)
         run: |
           # The server must advertise its catalog to registry crawlers
           # without an API key. Drive the stdio transport directly.
@@ -30,7 +30,7 @@ jobs:
           )
           COUNT=$(printf '%s' "$OUT" | grep -o '"inputSchema"' | wc -l | tr -d ' ')
           echo "tools advertised: $COUNT"
-          test "$COUNT" -eq 18
+          test "$COUNT" -eq 21
 
       - name: tool calls are refused without a key
         run: |
