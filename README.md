@@ -2,17 +2,17 @@
 
 The official **crypto yield data MCP server**: native Claude access to live and historical crypto lending, savings, staking, borrowing, stablecoin, price, coin metadata, and market data. Built on [Model Context Protocol](https://modelcontextprotocol.io) — works with Claude Desktop, Claude Code, Claude.ai, and any MCP-compatible agent.
 
-**The hosted server exposes 21 read-only tools. The pinned npm 1.1.0 package exposes 18.**
+**One npm install, twenty-one tools, one API key.**
 
 ```bash
 npx -y @bitcompare/mcp-server
 ```
 
-**Hosted MCP: Free API keys can call get_rates, get_rate_by_symbol and list_providers (30 requests/minute, 10,000/month). Other tools, including get_rate_history, require Pro or Enterprise.** Sign up at <https://auth.bitcompare.net/pro/signup>. The published npm 1.1.0 package still requires Pro or Enterprise; npm 1.2.0 adds the three Free tools and the 21-tool catalog.
+**Free API keys can call get_rates, get_rate_by_symbol and list_providers (30 requests/minute, 10,000/month). Every other tool, including get_rate_history, needs a paid plan (Starter at $49/mo or above).** Sign up at <https://auth.bitcompare.net/pro/signup>. Requires npm 1.2.0 or later; 1.1.0 has 18 tools and only works with Pro or Enterprise.
 
 ## What you get
 
-21 read-only tools on the hosted server; the pinned npm 1.1.0 package has 18. Calls use the same API key and request quotas as REST:
+21 read-only tools. Calls use the same API key and request quotas as REST:
 
 - **Crypto yield data** — current & historical lending, borrowing, savings, and staking APYs across CeFi and DeFi providers
 - **Coins** — metadata, price history, similar coins, and top-by-market-cap lookups
@@ -82,7 +82,7 @@ docker build -t bitcompare-mcp .
 docker run -i -e BITCOMPARE_API_KEY=ck_live_... bitcompare-mcp
 ```
 
-`tools/list` introspection works without a key; tool **calls** in the pinned npm 1.1.0 image require a valid `ck_live_` Pro or Enterprise key. For Free tools, use the updated hosted endpoint until npm 1.2.0 is published and the Docker pin is updated.
+`tools/list` introspection works without a key; tool **calls** need a valid `ck_live_` key: Free keys can call the three Free tools, and paid plans (Starter or above) can call all 21.
 
 ## CLI flags
 
